@@ -1,6 +1,8 @@
+import 'package:bmi_app2/utils.dart';
 import 'package:flutter/material.dart';
 
-import 'ReusableCard.dart';
+import 'reusableCard.dart';
+import 'icon_content.dart';
 
 class InputPage extends StatefulWidget {
   InputPage({Key? key}) : super(key: key);
@@ -10,7 +12,11 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  final Color activeColor = Color(0xFF1D1E33);
+  Gender _gender = Gender.NONE;
+
+  void updateCardColor({required Gender gender}) => setState(() {
+        _gender = gender;
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -25,31 +31,36 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: activeColor,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.male,
-                          color: Colors.white,
-                          size: 60,
-                        ),
-                        SizedBox(height: 15.0),
-                        Text(
-                          "MALE",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Color(0xFF8D8E98),
-                          ),
-                        ),
-                      ],
+                    callback: () => updateCardColor(gender: Gender.MALE),
+                    color: _gender == Gender.NONE || _gender == Gender.FEMALE
+                        ? inactiveCardColor
+                        : activeCardColor,
+                    child: IconConent(
+                      icon: Icons.male,
+                      iconSize: 80.0,
+                      iconColor: Colors.white,
+                      label: "MALE",
+                      labelStyle: TextStyle(
+                        color: labelColor,
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    color: activeColor,
-                    child: Container(),
+                    callback: () => updateCardColor(gender: Gender.FEMALE),
+                    color: _gender == Gender.NONE || _gender == Gender.MALE
+                        ? inactiveCardColor
+                        : activeCardColor,
+                    child: IconConent(
+                      icon: Icons.female,
+                      iconSize: 80.0,
+                      iconColor: Colors.white,
+                      label: "FEMALE",
+                      labelStyle: TextStyle(
+                        color: labelColor,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -57,7 +68,8 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReusableCard(
-              color: activeColor,
+              callback: () {},
+              color: activeCardColor,
               child: Container(),
             ),
           ),
@@ -66,29 +78,28 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: activeColor,
+                    callback: () {},
+                    color: activeCardColor,
                     child: Container(),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    color: activeColor,
+                    callback: () {},
+                    color: activeCardColor,
                     child: Container(),
                   ),
                 ),
               ],
             ),
           ),
+          Container(
+            width: double.infinity,
+            color: bottomContainerCcolor,
+            height: 80.0,
+          )
         ],
       ),
     );
   }
 }
-
-// Container(
-//             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(10.0),
-//               color: Color(0xFF1D1E33),
-//             ),
-//             margin: EdgeInsets.all(15.0),
-//           ),
