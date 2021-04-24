@@ -33,15 +33,15 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     callback: () => updateCardColor(gender: Gender.MALE),
                     color: _gender == Gender.NONE || _gender == Gender.FEMALE
-                        ? inactiveCardColor
-                        : activeCardColor,
+                        ? kInactiveCardColor
+                        : kActiveCardColor,
                     child: IconConent(
                       icon: Icons.male,
                       iconSize: 80.0,
                       iconColor: Colors.white,
                       label: "MALE",
                       labelStyle: TextStyle(
-                        color: labelColor,
+                        color: kLabelColor,
                       ),
                     ),
                   ),
@@ -50,15 +50,15 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     callback: () => updateCardColor(gender: Gender.FEMALE),
                     color: _gender == Gender.NONE || _gender == Gender.MALE
-                        ? inactiveCardColor
-                        : activeCardColor,
+                        ? kInactiveCardColor
+                        : kActiveCardColor,
                     child: IconConent(
                       icon: Icons.female,
                       iconSize: 80.0,
                       iconColor: Colors.white,
                       label: "FEMALE",
                       labelStyle: TextStyle(
-                        color: labelColor,
+                        color: kLabelColor,
                       ),
                     ),
                   ),
@@ -69,8 +69,15 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: ReusableCard(
               callback: () {},
-              color: activeCardColor,
-              child: Container(),
+              color: kActiveCardColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("HEGHT"),
+                  Text("180cm"),
+                  Slider(value: 1, onChanged: (_) {})
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -79,14 +86,14 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     callback: () {},
-                    color: activeCardColor,
+                    color: kActiveCardColor,
                     child: Container(),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     callback: () {},
-                    color: activeCardColor,
+                    color: kActiveCardColor,
                     child: Container(),
                   ),
                 ),
@@ -95,7 +102,7 @@ class _InputPageState extends State<InputPage> {
           ),
           Container(
             width: double.infinity,
-            color: bottomContainerCcolor,
+            color: kBottomContainerCcolor,
             height: 80.0,
           )
         ],
