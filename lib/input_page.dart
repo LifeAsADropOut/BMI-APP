@@ -1,3 +1,4 @@
+import 'package:bmi_app2/bottomContainerButton.dart';
 import 'package:bmi_app2/parameter_box.dart';
 import 'package:bmi_app2/utils.dart';
 import 'package:flutter/material.dart';
@@ -143,27 +144,16 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, kResultsPage, arguments: {
-                'weight': _weight,
-                'height': _sliderValue,
-                'age': _age,
-                'gender': _gender,
-              });
-            },
-            child: Container(
-              width: double.infinity,
-              color: kBottomContainerColor,
-              height: 80.0,
-              child: Center(
-                child: Text(
-                  "CALCULATE YOUR BMI",
-                  style: kNumberStyle.copyWith(fontSize: 20.0),
-                ),
-              ),
-            ),
-          )
+          BottomContainerButton(
+              label: "CALCULATE BMI",
+              onPressed: () {
+                Navigator.pushNamed(context, kResultsPage, arguments: {
+                  'weight': _weight,
+                  'height': _sliderValue,
+                  'age': _age,
+                  'gender': _gender,
+                });
+              }),
         ],
       ),
     );

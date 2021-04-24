@@ -39,3 +39,9 @@ ThemeData appTheme(BuildContext context) => ThemeData.dark().copyWith(
         0xFF0A0E21,
       ),
     );
+
+const Map<String, String> kBMIlogs = {
+  'high': "You have higher than normal body weight. Try to exercise more.",
+  'normal': "You are healthy!",
+  'underweight': "You are underweight. Try to eat more!",
+};
