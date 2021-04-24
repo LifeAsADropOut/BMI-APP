@@ -27,7 +27,7 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("BMI CALCULATOR"),
+        title: Text(kAppBarTitle),
       ),
       body: Column(
         children: [
@@ -143,15 +143,26 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            width: double.infinity,
-            color: kBottomContainerColor,
-            height: 80.0,
-            child: Center(
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, kResultsPage, arguments: {
+                'weight': _weight,
+                'height': _sliderValue,
+                'age': _age,
+                'gender': _gender,
+              });
+            },
+            child: Container(
+              width: double.infinity,
+              color: kBottomContainerColor,
+              height: 80.0,
+              child: Center(
                 child: Text(
-              "CALCULATE YOUR BMI",
-              style: kNumberStyle.copyWith(fontSize: 20.0),
-            )),
+                  "CALCULATE YOUR BMI",
+                  style: kNumberStyle.copyWith(fontSize: 20.0),
+                ),
+              ),
+            ),
           )
         ],
       ),

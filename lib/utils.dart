@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+const String kInputPage = '/';
+const String kResultsPage = '/results';
+
 enum Gender { MALE, FEMALE, NONE }
+
+const String kAppBarTitle = "BMI CALCULATOR";
 
 const double kMaxHeight = 220.0;
 const double kMinHeight = 120.0;
@@ -20,3 +25,17 @@ const TextStyle kNumberStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 28.0,
 );
+
+ThemeData appTheme(BuildContext context) => ThemeData.dark().copyWith(
+      sliderTheme: SliderTheme.of(context).copyWith(
+        activeTrackColor: Colors.white,
+        thumbColor: Colors.pink,
+        thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
+        overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
+        overlayColor: Colors.pink.withAlpha(40),
+      ),
+      primaryColor: Color(0xFF0A0E21),
+      scaffoldBackgroundColor: Color(
+        0xFF0A0E21,
+      ),
+    );
