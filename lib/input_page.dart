@@ -1,3 +1,4 @@
+import 'package:bmi_app2/parameter_box.dart';
 import 'package:bmi_app2/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,10 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender _gender = Gender.NONE;
+  double _sliderValue = 120.0;
+
+  double _weight = 60.0;
+  double _age = 8.0;
 
   void updateCardColor({required Gender gender}) => setState(() {
         _gender = gender;
@@ -40,9 +45,7 @@ class _InputPageState extends State<InputPage> {
                       iconSize: 80.0,
                       iconColor: Colors.white,
                       label: "MALE",
-                      labelStyle: TextStyle(
-                        color: kLabelColor,
-                      ),
+                      labelStyle: kLabelStyle,
                     ),
                   ),
                 ),
@@ -57,9 +60,7 @@ class _InputPageState extends State<InputPage> {
                       iconSize: 80.0,
                       iconColor: Colors.white,
                       label: "FEMALE",
-                      labelStyle: TextStyle(
-                        color: kLabelColor,
-                      ),
+                      labelStyle: kLabelStyle,
                     ),
                   ),
                 ),
@@ -73,9 +74,33 @@ class _InputPageState extends State<InputPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("HEGHT"),
-                  Text("180cm"),
-                  Slider(value: 1, onChanged: (_) {})
+                  Text(
+                    "HEGHT",
+                    style: kLabelStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Text(
+                        "${_sliderValue.floor()}",
+                        style: kNumberStyle,
+                      ),
+                      Text("cm")
+                    ],
+                  ),
+                  Slider(
+                    inactiveColor: Color(0xFF8D8E98),
+                    value: _sliderValue,
+                    min: kMinHeight,
+                    max: kMaxHeight,
+                    onChanged: (_sv) {
+                      setState(() {
+                        _sliderValue = _sv;
+                      });
+                    },
+                  )
                 ],
               ),
             ),
@@ -87,14 +112,32 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     callback: () {},
                     color: kActiveCardColor,
-                    child: Container(),
+                    child: ParameterBox(
+                      onAdd: () => setState(() {
+                        _weight = _weight == 500 ? _weight : ++_weight;
+                      }),
+                      onSubtract: () => setState(() {
+                        _weight = _weight == 15 ? _weight : --_weight;
+                      }),
+                      title: "WEIGHT",
+                      param: _weight,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     callback: () {},
                     color: kActiveCardColor,
-                    child: Container(),
+                    child: ParameterBox(
+                      onSubtract: () => setState(() {
+                        _age = _age == 1 ? _age : --_age;
+                      }),
+                      onAdd: () => setState(() {
+                        _age = _age == 120 ? _age : ++_age;
+                      }),
+                      title: "AGE",
+                      param: _age,
+                    ),
                   ),
                 ),
               ],
@@ -102,8 +145,13 @@ class _InputPageState extends State<InputPage> {
           ),
           Container(
             width: double.infinity,
-            color: kBottomContainerCcolor,
+            color: kBottomContainerColor,
             height: 80.0,
+            child: Center(
+                child: Text(
+              "CALCULATE YOUR BMI",
+              style: kNumberStyle.copyWith(fontSize: 20.0),
+            )),
           )
         ],
       ),
